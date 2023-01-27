@@ -25,15 +25,15 @@ export function ProfileCard() {
         <footer>
           <ul>
             <li>
-              <GithubLogo size={25} />
+              <GithubLogo size={20} />
               ramontrovao
             </li>
             <li>
-              <Buildings size={25} />
+              <Buildings size={20} />
               Freelancer
             </li>
             <li>
-              <Users size={32} />
+              <Users size={20} />
               18 seguidores
             </li>
           </ul>

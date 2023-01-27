@@ -50,13 +50,19 @@ export const ProfileInfosWrapper = styled.div`
         font-weight: bold;
         font-size: ${font["small-md"]};
         color: ${colors["blue"]};
+        border-bottom: 2px solid transparent;
+        transition: border .4s;
+
+        &:hover {
+            border-bottom: 2px solid ${colors["blue"]};
+        }
       }
     }
 
     main {
       p {
         margin-top: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
         justify-self: center;
         color: ${colors["base-text"]};
       }
