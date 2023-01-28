@@ -16,7 +16,7 @@ import {
 type postType = {
   title: string;
   body: string;
-  created_at: string;
+  created_at: Date;
   number: number;
 };
 
@@ -37,7 +37,7 @@ export function Publications() {
                 {
                   title: post["title"],
                   body: post["body"],
-                  created_at: post["created_at"],
+                  created_at: new Date(post["created_at"]),
                   number: post["number"],
                 },
               ]);
@@ -92,7 +92,7 @@ export function Publications() {
                 <h4>{post.title}</h4>
 
                 <span>
-                  {formatDistanceToNow(new Date(post["created_at"]), {
+                  {formatDistanceToNow(post["created_at"], {
                     addSuffix: true,
                     locale: ptBR,
                   })}

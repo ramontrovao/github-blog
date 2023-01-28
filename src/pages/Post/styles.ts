@@ -86,10 +86,7 @@ export const PostContent = styled.div`
   ${({ theme: { colors, font } }) => css`
     width: 56rem;
     margin-top: 2.5rem;
-
-    p {
-      color: ${colors["base-text"]};
-    }
+    color: ${colors["base-text"]};
 
     code {
       display: block;

@@ -20,7 +20,7 @@ type userType = {
 type postType = {
   title: string;
   body: string;
-  created_at: string;
+  created_at: Date;
   login: string;
   comments: number;
 };
@@ -28,10 +28,10 @@ type postType = {
 export function Post() {
   const { id } = useParams();
   const [post, setPost] = useState<postType>({
-    title: "Carregando",
-    body: "Carregando",
-    created_at: "Carregando",
-    login: "Carregando",
+    title: "Carregando...",
+    body: "Carregando...",
+    created_at: new Date(),
+    login: "Carregando...",
     comments: 0,
   });
 
@@ -44,7 +44,7 @@ export function Post() {
             setPost({
               title: data["title"],
               body: data["body"],
-              created_at: data["created_at"],
+              created_at: new Date(data["created_at"]),
               login: data["user"]["login"],
               comments: data["comments"],
             });
@@ -88,7 +88,7 @@ export function Post() {
 
               <li>
                 <Calendar size={25} />{" "}
-                {formatDistanceToNow(new Date(post.created_at), {
+                {formatDistanceToNow(post["created_at"], {
                   addSuffix: true,
                   locale: ptBR,
                 })}
