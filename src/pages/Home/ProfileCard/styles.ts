@@ -61,10 +61,10 @@ export const ProfileInfosWrapper = styled.div`
 
     main {
       width: 100%;
+      margin-top: 1rem;
+        margin-bottom: 3.5rem;
 
       p {
-        margin-top: 1rem;
-        margin-bottom: 2rem;
         justify-self: center;
         color: ${colors["base-text"]};
       }
