@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 export const ProfileCardContainer = styled.div`
   ${({ theme: { colors, font } }) => css`
     display: flex;
-    justify-content: center;
     gap: 1rem;
     margin-top: -5rem;
     padding: 2rem;
@@ -19,6 +18,7 @@ export const ProfileCardContainer = styled.div`
 
     @media (max-width: 768px) {
       flex-wrap: wrap;
+      justify-content: center;
 
       ul {
         flex-wrap: wrap;
@@ -29,6 +29,7 @@ export const ProfileCardContainer = styled.div`
 
 export const ProfileInfosWrapper = styled.div`
   ${({ theme: { colors, font } }) => css`
+    width: 100%;
     display: flex;
     flex-direction: column;
 
@@ -59,6 +60,8 @@ export const ProfileInfosWrapper = styled.div`
     }
 
     main {
+      width: 100%;
+
       p {
         margin-top: 1rem;
         margin-bottom: 2rem;
@@ -68,6 +71,8 @@ export const ProfileInfosWrapper = styled.div`
     }
 
     footer {
+      width: 100%;
+
       ul {
         display: flex;
         gap: 1rem;
