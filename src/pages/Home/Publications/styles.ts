@@ -1,7 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const PublicationsContainer = styled.div`
-  max-width: 54rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -32,7 +31,7 @@ export const PublicationTitle = styled.div`
   `}
 `;
 
-export const PublicationSearch = styled.div`
+export const PublicationSearch = styled.form`
   ${({ theme: { colors, font } }) => css`
     input {
       width: 100%;
@@ -42,6 +41,7 @@ export const PublicationSearch = styled.div`
       font-size: ${font["medium-sm"]};
       outline: none;
       border-radius: 6px;
+      color: ${colors["base-label"]};
 
       ::placeholder {
         color: ${colors["base-label"]};
@@ -63,45 +63,48 @@ export const PublicationGridSection = styled.section`
     grid-gap: 2rem;
     margin-top: 2rem;
 
-    div {
+    @media (max-width: 410px) {
+      grid-template-columns: repeat(auto-fit, 100%);
+    }
+  `}
+`;
+
+export const Publication = styled.div`
+  ${({ theme: { colors, font } }) => css`
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: ${colors["base-post"]};
+    padding: 2rem;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    transition: border 0.2s;
+    cursor: pointer;
+
+    header {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      background: ${colors["base-post"]};
-      padding: 2rem;
-      border-radius: 10px;
-      border: 2px solid transparent;
-      transition: border 0.2s;
+      justify-content: space-between;
 
-      header {
-        display: flex;
-        justify-content: space-between;
-
-        h4 {
-          color: ${colors["base-title"]};
-          font-size: ${font["large-sm"]};
-          width: 80%;
-        }
-
-        span {
-          color: ${colors["base-span"]};
-          font-size: ${font["medium-sm"]};
-        }
+      h4 {
+        color: ${colors["base-title"]};
+        font-size: ${font["large-sm"]};
+        width: 80%;
       }
 
-      main {
-        p {
-          color: ${colors["base-text"]};
-        }
-      }
-
-      :hover {
-        border: 2px solid ${colors["base-label"]};
+      span {
+        color: ${colors["base-span"]};
+        font-size: ${font["medium-sm"]};
       }
     }
 
-    @media (max-width: 410px) {
-      grid-template-columns: repeat(auto-fit, 100%);
+    main {
+      p {
+        color: ${colors["base-text"]};
+      }
+    }
+
+    :hover {
+      border: 2px solid ${colors["base-label"]};
     }
   `}
 `;

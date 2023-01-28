@@ -1,40 +1,74 @@
 import { ArrowUpRight, Buildings, GithubLogo, Users } from "phosphor-react";
+import { useEffect, useState } from "react";
+import { api } from "../../../lib/axios";
 import { ProfileCardContainer, ProfileInfosWrapper } from "./styles";
+import profileImg from "../../../assets/profileimg.png";
+
+type userInfoType = {
+  name: string;
+  bio: string;
+  login: string;
+  company: string;
+  followers: number;
+};
 
 export function ProfileCard() {
+  const [userInfo, setUserInfo] = useState({
+    name: "Carregando...",
+    bio: "Carregando...",
+    login: "Carregando...",
+    company: "Carregando...",
+    followers: 0,
+  } as userInfoType);
+
+  useEffect(() => {
+    const getUser = async () => {
+      await api.get("/users/ramontrovao").then(({ data }) => {
+        setUserInfo({
+          name: data["name"],
+          bio: data["bio"],
+          login: data["login"],
+          company: data["company"],
+          followers: data["followers"],
+        });
+      });
+    };
+
+    getUser();
+  }, []);
+
+  const { name, bio, login, company, followers } = userInfo;
+
   return (
     <ProfileCardContainer>
-      <img src="./assets/profileimg.png" alt="" />
+      <img src={profileImg} />
 
       <ProfileInfosWrapper>
         <header>
-          <h2>Ramon Pinheiro</h2>
+          <h2>{name}</h2>
 
-          <a href="#">
+          <a href={`https://github.com/${login}`}>
             GITHUB <ArrowUpRight size={25} />
           </a>
         </header>
 
         <main>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illo est
-            cum sapiente doloremque reiciendis unde.
-          </p>
+          <p>{bio}</p>
         </main>
 
         <footer>
           <ul>
             <li>
               <GithubLogo size={20} />
-              ramontrovao
+              {login}
             </li>
             <li>
               <Buildings size={20} />
-              Freelancer
+              {company ?? "Nenhum"}
             </li>
             <li>
               <Users size={20} />
-              18 seguidores
+              {followers} seguidores
             </li>
           </ul>
         </footer>

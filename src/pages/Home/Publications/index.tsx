@@ -1,4 +1,11 @@
+import { formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/esm/locale/pt-BR/index.js";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../../lib/axios";
 import {
+  Publication,
   PublicationGridSection,
   PublicationsContainer,
   PublicationSearch,
@@ -6,72 +13,121 @@ import {
   PublicationTitle,
 } from "./styles";
 
+type postType = {
+  title: string;
+  body: string;
+  created_at: string;
+  number: number;
+};
+
 export function Publications() {
+  const [posts, setPosts] = useState<postType[]>([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getPosts = async () => {
+      try {
+        await api
+          .get("/repos/ramontrovao/github-blog/issues")
+          .then(({ data }) => {
+            data.map((post: postType) => {
+              setPosts((prev) => [
+                ...prev,
+                {
+                  title: post["title"],
+                  body: post["body"],
+                  created_at: post["created_at"],
+                  number: post["number"],
+                },
+              ]);
+            });
+          });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getPosts();
+  }, []);
+
+  function handleOpenPost(id: number) {
+    navigate(`/post/${id}`);
+  }
+
+  const { register, watch } = useForm();
+  const searchQ = watch("question");
   return (
     <PublicationsContainer>
       <PublicationSearchWrapper>
         <PublicationTitle>
           <h3>Publicações</h3>
 
-          <span>6 publicações</span>
+          {posts.length === 1 ? (
+            <span>{posts.length} publicação</span>
+          ) : (
+            <span>{posts.length} publicações</span>
+          )}
         </PublicationTitle>
 
         <PublicationSearch>
-          <input type="text" placeholder="Buscar conteúdo" />
+          <input
+            type="text"
+            placeholder="Buscar conteúdo"
+            {...register("question")}
+          />
         </PublicationSearch>
       </PublicationSearchWrapper>
 
       <PublicationGridSection>
-        <div>
-          <header>
-            <h4>JavaScript data types and data structures</h4>
+        {posts.map((post: postType) =>
+          !searchQ ? (
+            <Publication
+              onClick={() => {
+                handleOpenPost(post.number);
+              }}
+              key={post.number}
+            >
+              <header>
+                <h4>{post.title}</h4>
 
-            <span>há 1 dia</span>
-          </header>
+                <span>
+                  {formatDistanceToNow(new Date(post["created_at"]), {
+                    addSuffix: true,
+                    locale: ptBR,
+                  })}
+                </span>
+              </header>
 
-          <main>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-              officiis reprehenderit aliquid debitis nesciunt recusandae labore
-              quisquam harum necessitatibus ab nihil numquam nam, alias animi
-              saepe sapiente itaque voluptates ea.
-            </p>
-          </main>
-        </div>
+              <main>
+                <p>{post.body.split("").slice(0, 250).join("")}...</p>
+              </main>
+            </Publication>
+          ) : (
+            post.title.toLowerCase().includes(searchQ.toLowerCase()) && (
+              <Publication
+                onClick={() => {
+                  handleOpenPost(post.number);
+                }}
+              >
+                <header>
+                  <h4>{post.title}</h4>
 
-        <div>
-          <header>
-            <h4>JavaScript data types and data structures</h4>
+                  <span>
+                    {formatDistanceToNow(new Date(post["created_at"]), {
+                      addSuffix: true,
+                      locale: ptBR,
+                    })}
+                  </span>
+                </header>
 
-            <span>há 1 dia</span>
-          </header>
-
-          <main>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-              officiis reprehenderit aliquid debitis nesciunt recusandae labore
-              quisquam harum necessitatibus ab nihil numquam nam, alias animi
-              saepe sapiente itaque voluptates ea.
-            </p>
-          </main>
-        </div>
-
-        <div>
-          <header>
-            <h4>JavaScript data types and data structures</h4>
-
-            <span>há 1 dia</span>
-          </header>
-
-          <main>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-              officiis reprehenderit aliquid debitis nesciunt recusandae labore
-              quisquam harum necessitatibus ab nihil numquam nam, alias animi
-              saepe sapiente itaque voluptates ea.
-            </p>
-          </main>
-        </div>
+                <main>
+                  <p>{post.body.split("").slice(0, 250).join("")}...</p>
+                </main>
+              </Publication>
+            )
+          )
+        )}
       </PublicationGridSection>
     </PublicationsContainer>
   );

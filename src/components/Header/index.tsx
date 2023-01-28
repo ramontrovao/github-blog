@@ -1,9 +1,10 @@
 import { HeaderContainer } from "./styles";
+import githubLogo from "../../assets/github-blog-logo.svg";
 
 export function Header() {
   return (
     <HeaderContainer>
-      <img src="./assets/github-blog-logo.svg" />
+      <img src={githubLogo} />
     </HeaderContainer>
   );
 }

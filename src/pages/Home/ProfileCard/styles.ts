@@ -2,7 +2,6 @@ import styled, { css } from "styled-components";
 
 export const ProfileCardContainer = styled.div`
   ${({ theme: { colors, font } }) => css`
-    max-width: 54rem;
     display: flex;
     justify-content: center;
     gap: 1rem;

@@ -11,9 +11,12 @@
   "dependencies": {
     "@types/styled-components": "^5.1.26",
     "axios": "^1.2.5",
+    "date-fns": "^2.29.3",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.42.1",
+    "react-markdown": "^8.0.5",
     "react-router-dom": "^6.8.0",
     "styled-components": "^5.3.6"
   },

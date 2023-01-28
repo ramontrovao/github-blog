@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const HomeContainer = styled.main`
+export const HomeMain = styled.main`
   ${({ theme: { colors, font } }) => css`
     display: flex;
     align-items: center;
@@ -9,4 +9,13 @@ export const HomeContainer = styled.main`
     padding: 1rem;
     background: ${colors["base-background"]};
   `}
+`;
+
+export const HomeContainer = styled.div`
+  width: 54rem;
+
+  @media (max-width: 910px) {
+    width: 100%;
+    padding: 1rem;
+  }
 `;

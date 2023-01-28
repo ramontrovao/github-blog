@@ -1,12 +1,14 @@
 import { ProfileCard } from "./ProfileCard";
 import { Publications } from "./Publications";
-import { HomeContainer } from "./styles";
+import { HomeContainer, HomeMain } from "./styles";
 
 export function Home() {
   return (
-    <HomeContainer>
-      <ProfileCard />
-      <Publications />
-    </HomeContainer>
+    <HomeMain>
+      <HomeContainer>
+        <ProfileCard />
+        <Publications />
+      </HomeContainer>
+    </HomeMain>
   );
 }
