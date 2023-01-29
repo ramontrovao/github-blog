@@ -99,7 +99,7 @@ export const Publication = styled.div`
     }
 
     main {
-      p {
+      * {
         color: ${colors["base-text"]};
       }
     }

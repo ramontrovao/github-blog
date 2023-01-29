@@ -9,7 +9,7 @@ import {
 } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { api } from "../../lib/axios";
 import { PostMain, PostInfo, PostContent, PostContainer } from "./styles";
 
@@ -34,6 +34,7 @@ export function Post() {
     login: "Carregando...",
     comments: 0,
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPost = async () => {
@@ -51,6 +52,8 @@ export function Post() {
           });
       } catch (err) {
         console.log(err);
+
+        navigate("/404");
       }
     };
 
@@ -94,9 +97,15 @@ export function Post() {
                 })}
               </li>
 
-              <li>
-                <Chat size={25} /> {post.comments} comentários
-              </li>
+              {post.comments === 1 ? (
+                <li>
+                  <Chat size={25} /> {post.comments} comentário
+                </li>
+              ) : (
+                <li>
+                  <Chat size={25} /> {post.comments} comentários
+                </li>
+              )}
             </ul>
           </footer>
         </PostInfo>

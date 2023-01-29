@@ -35,6 +35,14 @@ export const PostContainer = styled.div`
           text-decoration: none;
           font-size: ${font["small-md"]};
           color: ${colors["blue"]};
+          font-weight: bold;
+          border-bottom: 2px solid transparent;
+          padding-bottom: 0.25rem;
+          transition: 0.4s border;
+
+          &:hover {
+            border-bottom: 2px solid ${colors["blue"]};
+          }
         }
       }
     }

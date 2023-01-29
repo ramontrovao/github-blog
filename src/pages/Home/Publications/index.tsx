@@ -2,6 +2,7 @@ import { formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/esm/locale/pt-BR/index.js";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../../lib/axios";
 import {
@@ -57,6 +58,8 @@ export function Publications() {
 
   const { register, watch } = useForm();
   const searchQ = watch("question");
+  const isSearchQNullOrUndefined = !searchQ;
+
   return (
     <PublicationsContainer>
       <PublicationSearchWrapper>
@@ -81,7 +84,7 @@ export function Publications() {
 
       <PublicationGridSection>
         {posts.map((post: postType) =>
-          !searchQ ? (
+          isSearchQNullOrUndefined ? (
             <Publication
               onClick={() => {
                 handleOpenPost(post.number);
@@ -100,7 +103,10 @@ export function Publications() {
               </header>
 
               <main>
-                <p>{post.body.split("").slice(0, 250).join("")}...</p>
+                <ReactMarkdown>
+                  {post.body.split("").slice(0, 250).join("")}
+                </ReactMarkdown>{" "}
+                <p>...</p>
               </main>
             </Publication>
           ) : (
@@ -122,7 +128,9 @@ export function Publications() {
                 </header>
 
                 <main>
-                  <p>{post.body.split("").slice(0, 250).join("")}...</p>
+                  <ReactMarkdown>
+                    {post.body.split("").slice(0, 250).join("")}
+                  </ReactMarkdown>
                 </main>
               </Publication>
             )

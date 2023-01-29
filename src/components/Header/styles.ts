@@ -8,9 +8,9 @@ export const HeaderContainer = styled.header`
   background-image: url(${headerCover});
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 18.5rem;
+  min-height: 15rem;
 
   img {
-    margin-bottom: 1.25;
+    margin-bottom: 3rem;
   }
 `;
