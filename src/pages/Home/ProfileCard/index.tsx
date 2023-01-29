@@ -2,7 +2,6 @@ import { ArrowUpRight, Buildings, GithubLogo, Users } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { api } from "../../../lib/axios";
 import { ProfileCardContainer, ProfileInfosWrapper } from "./styles";
-import profileImg from "../../../assets/profileimg.png";
 
 type userInfoType = {
   name: string;
@@ -41,7 +40,10 @@ export function ProfileCard() {
 
   return (
     <ProfileCardContainer>
-      <img src={profileImg} />
+      <img
+        src={`https://github.com/${login}.png`}
+        title={`Imagem do perfil "${login}" no Github`}
+      />
 
       <ProfileInfosWrapper>
         <header>

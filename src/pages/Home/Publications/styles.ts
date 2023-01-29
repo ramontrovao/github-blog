@@ -83,6 +83,7 @@ export const Publication = styled.div`
 
     header {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
 
       h4 {
